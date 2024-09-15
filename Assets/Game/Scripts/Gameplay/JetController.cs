@@ -21,7 +21,7 @@ public class JetController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(PlayerInputHandler.Instance.ThrottleIncrease);
-        JetEngines.AdjustThrust(Input.GetAxis("Vertical"));
+     
+      
     }
 }

@@ -5,47 +5,30 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class JetEngines : MonoBehaviour
 {
-    [SerializeField] private float maxThrustOutPut = 10000;
-    [SerializeField] private float totalThrust = 1000000;
-    [SerializeField] private float thrustGain = 0.0f;
-    private float currentThrust = 0.0f;
-    private float thrustRatio = 0.0f;
-    private float thrustOutput;
-     private Rigidbody rb
+    //Move to a plane class
+    [SerializeField] private float maxThrust;
+    [SerializeField] private float thrustGain;
+    private float throttleAmount;
+    [SerializeField] private Rigidbody rb;
+    public void ApplyThrust(float throttle)
     {
-        get { return GetComponent<Rigidbody>(); }
-    }
 
-    public void AdjustThrust(float throttleAmount)
-    {
-        currentThrust += throttleAmount * 10;
-        currentThrust = Mathf.Clamp(currentThrust, 0.0f, totalThrust);
-    }
-
-    public void RunEngines()
-    {
-        thrustRatio = currentThrust / totalThrust;
-     
-        if (thrustRatio > 0.0)
+        if (throttle > 0.0f)
         {
-            thrustOutput += thrustRatio * thrustGain * Time.deltaTime;
+            throttleAmount += thrustGain;
         }
-        else if (thrustRatio < 0.0)
+        else if (throttle < 0.0f)
         {
-            thrustOutput -= thrustRatio * thrustGain * Time.deltaTime;
+            throttleAmount -= thrustGain;
         }
-      
-        Debug.Log(thrustOutput);
-        thrustOutput = Mathf.Clamp(thrustOutput, 0, maxThrustOutPut);
-       
-    }
-    private void Update()
-    {
-      RunEngines();
+        throttleAmount = Mathf.Clamp(throttleAmount, 0.0f, maxThrust);
+        float totalThrust = (throttleAmount / maxThrust);
+        var thrust =  maxThrust * Vector3.forward;
+        rb.AddRelativeForce(thrust);
+      //  rb.velocity = transform.forward * maxThrust;
     }
     private void FixedUpdate()
     {
-        Vector3 forwardThrust = Vector3.forward * thrustOutput;
-        rb.AddRelativeForce(forwardThrust);
+        ApplyThrust(1);
     }
 }
