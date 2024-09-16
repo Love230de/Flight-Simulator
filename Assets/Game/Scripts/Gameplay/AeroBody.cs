@@ -17,20 +17,20 @@ public class AeroBody : MonoBehaviour
     public float AOA { get;set; }
 
     public float YawAOA {  get;set; }
-    private Vector3 localVelocity {  get; set; }
+    public Vector3 localVelocity {  get; set; }
 
     private Vector3 currentAngularVelocity;
     private Vector3 prevVelocity;
     private Vector3 currentVelocity;
     private Vector3 acceleration;
 
-    private Vector3 localAngularVelocity { get; set; }
+    public Vector3 localAngularVelocity { get; set; }
 
     private Vector3 drag { get; set; }
 
     private Vector3 lift;
 
-    public Vector3 G {  get; set; }
+    public float G {  get; set; }
     private void CalculateAircraftState()
     {
         localVelocity =  Quaternion.Inverse(rb.rotation) *rb.velocity;
@@ -54,7 +54,7 @@ public class AeroBody : MonoBehaviour
         Vector3 liftDirection = Vector3.Cross(liftVelocity.normalized,right);
 
         lift = liftDirection * liftVelocity.magnitude * liftValue * liftCoef.Evaluate(AngleOfAttack * Mathf.Rad2Deg) ;
-        float inducedDragPower = 6;
+        float inducedDragPower = 25;
         Vector3 inducedDrag = -liftVelocity.normalized * liftVelocity.sqrMagnitude  * inducedDragPower;
 
         rb.AddRelativeForce(lift + inducedDrag);
@@ -67,12 +67,11 @@ public class AeroBody : MonoBehaviour
        
 
         acceleration = ( currentVelocity - prevVelocity)/Time.deltaTime;
-       
-        Vector3 g = MathUtilties.Scale6(acceleration, localAngularVelocity.x, localAngularVelocity.x, localAngularVelocity.y * YawAOA, localAngularVelocity.y * YawAOA,localAngularVelocity.z,-9.88f);
-        prevVelocity = currentVelocity;
-        G = g;
 
-       
+        float gravityScale = 9.87f;
+        prevVelocity = currentVelocity;
+        G = Vector3.Cross(acceleration / gravityScale,Vector3.right).magnitude;
+   
 
     }
 

@@ -15,51 +15,42 @@ public class ControlSurfaces : MonoBehaviour
     [SerializeField] private AnimationCurve steerCoef, pitchCoef;
 
     [SerializeField] private float turnSpeed,pitchSpeed,yawSpeed;
-    private Vector3 steerInput { get; set; }
     [SerializeField] Vector3 accel;
-    [SerializeField] Vector3 control = Vector3.zero;
     [SerializeField] private Vector3 localAngularVelocity;
     Vector3 currentVelocity;
-    private float Steer(float currentVelocity,float targetVelocity,float acceleration)
-    {
-        float error = (targetVelocity - currentVelocity);
-        float accel = acceleration * Time.deltaTime;
-        return Mathf.Clamp(error,-accel,accel);
-    }
-
-    public void CalculateSteerInput(float x,float y,float z)
-    {
-
-
-        control.x = x;
-        control.y = steerCoef.Evaluate(y);
-        control.z = steerCoef.Evaluate(z);
-        steerInput = control;
-        
-    }
+    Vector3 finalVelocity = Vector3.zero;
 
     void CalculateSteer(Vector3 targetVelocity)
-    {
-
-        
-
-        Vector3 error = targetVelocity - localAngularVelocity * Mathf.Max(0, currentVelocity.z);
-
-
-        rb.AddRelativeTorque(error * Mathf.Deg2Rad, ForceMode.VelocityChange);
-    }
-    private void UpdateControl()
     {
 
         localAngularVelocity = Quaternion.Inverse(rb.rotation) * rb.angularVelocity;
         currentVelocity = Quaternion.Inverse(rb.rotation) * rb.velocity;
 
-        float steerX = Steer(currentVelocity.x, steerInput.x,  Mathf.Max(0,currentVelocity.z) * pitchSpeed);
-        float steerY = Steer(currentVelocity.y, steerInput.y * yawSpeed, accel.y);
-        float steerZ = Steer(currentVelocity.z, steerInput.z * turnSpeed, accel.z);
-   
-        Vector3 steerForce = new Vector3(steerX, steerY, steerZ);
-        CalculateSteer(new Vector3(Input.GetAxis("Vertical") * pitchSpeed, 0, Input.GetAxis("Horizontal") * turnSpeed));
+        float speed = Mathf.Max(0, currentVelocity.z);
+       
+        finalVelocity.x = steerCoef.Evaluate(speed) * pitchSpeed * targetVelocity.x;
+        finalVelocity.y = steerCoef.Evaluate(speed) * yawSpeed * targetVelocity.y;
+        finalVelocity.z = steerCoef.Evaluate(speed) * turnSpeed * targetVelocity.z;
+        Vector3 finalTorque = (finalVelocity - localAngularVelocity * Mathf.Max(0, currentVelocity.z));
+
+
+
+
+        rb.AddRelativeTorque(finalTorque * Mathf.Deg2Rad, ForceMode.VelocityChange);
+    }
+    private void UpdateControl()
+    {
+
+      
+
+       // float steerX = Steer(currentVelocity.x, steerInput.x,  Mathf.Max(0,currentVelocity.z) * pitchSpeed);
+       // float steerY = Steer(currentVelocity.y, steerInput.y * yawSpeed, accel.y);
+      //  float steerZ = Steer(currentVelocity.z, steerInput.z * turnSpeed, accel.z);
+    
+      //  Vector3 steerForce = new Vector3(steerX, steerY, steerZ);
+
+        
+        CalculateSteer(new Vector3(Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal")));
 
 
     }

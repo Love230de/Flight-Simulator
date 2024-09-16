@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c296939db1a064eb59d4f780db7647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxThrust: 10000
+  maxThrust: 30000
   thrustGain: 2500
   rb: {fileID: 7329885862052488250}
 --- !u!136 &4669610370635254224
@@ -2162,12 +2162,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liftValue: 50
-  dragCoefLeft: 1
-  dragCoefRight: 1
-  dragCoefForward: 1
-  dragCoefBackward: 1
-  dragCoefUp: 1
-  dragCeofDown: 1
+  dragCoefLeft: 0.05
+  dragCoefRight: 0.05
+  dragCoefForward: 0.05
+  dragCoefBackward: 0.05
+  dragCoefUp: 0.05
+  dragCeofDown: 0.05
   dragLeft:
     serializedVersion: 2
     m_Curve:
@@ -2428,7 +2428,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  turnSpeed: 45
+  turnSpeed: 75
   pitchSpeed: 25
   yawSpeed: 0
   accel: {x: 0, y: 0, z: 0}
