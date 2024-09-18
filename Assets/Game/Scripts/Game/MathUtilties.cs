@@ -51,5 +51,12 @@ public static class MathUtilties
         return prevVelocity - currentVelocity;
     }
 
+    public static Vector3 ConvertToKnots(Vector3 velocity)
+    {
+        float x = (velocity.x * velocity.x ) * 1.852f;
+        float y = (velocity.y * velocity.y) * 1.852f;
+        float z = (velocity.z * velocity.z) * 1.852f;
+        return new Vector3  (x, y, z);
+    }
 
 }
