@@ -4,19 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class AeroBody : MonoBehaviour
 {
+    Jet jet
+    {
+        get { return GetComponent<Jet>(); }
+    }
     Rigidbody rb
     {
         get { return GetComponent<Rigidbody>(); }
     }
-    [SerializeField] private float liftValue;
-    [SerializeField] private AnimationCurve dragLeft, dragRight, dragForward,dragBackward, dragUp,dragDown;
-
-    [SerializeField] private AnimationCurve liftCoef;
-    [SerializeField] private AnimationCurve inducedDragCoef;
-    //Stall speed and speed will be in knots later I will set this in a gameworld singleton
-    [SerializeField] private float stallSpeed;
+ 
     public float AOA { get;set; }
-    [SerializeField] private float inducedDragPower = 25;
+ 
     public float YawAOA {  get;set; }
     public Vector3 localVelocity {  get; set; }
     private Vector3 prevVelocity;
@@ -29,7 +27,7 @@ public class AeroBody : MonoBehaviour
 
  
 
-    public float G {  get; set; }
+    public Vector3 G;
     private void CalculateAircraftState()
     {
         localVelocity =  Quaternion.Inverse(rb.rotation) *rb.velocity;
@@ -42,13 +40,13 @@ public class AeroBody : MonoBehaviour
     private void ApplyDrag()
     {
         drag = localVelocity.sqrMagnitude * -localVelocity.normalized * 
-            MathUtilties.Scale6(localVelocity.normalized, 
-            dragRight.Evaluate(localVelocity.x), 
-            dragLeft.Evaluate(localVelocity.x ), 
-            dragUp.Evaluate(localVelocity.y), 
-            dragDown.Evaluate(localVelocity.y ), 
-            dragForward.Evaluate(localVelocity.z), 
-            dragBackward.Evaluate(localVelocity.z)).magnitude;
+            MathUtilties.Scale6(localVelocity.normalized,
+              jet.DragRight.Evaluate(localVelocity.x), 
+            jet.DragLeft.Evaluate(localVelocity.x ), 
+            jet.DragUp.Evaluate(localVelocity.y), 
+            jet.DragDown.Evaluate(localVelocity.y ), 
+            jet.DragForward.Evaluate(localVelocity.z), 
+            jet.DragBackward.Evaluate(localVelocity.z)).magnitude;
         rb.AddRelativeForce(drag);
     
     }
@@ -59,9 +57,9 @@ public class AeroBody : MonoBehaviour
 
         var liftVelocitySquard = liftVelocity.sqrMagnitude;
 
-        var liftCoef = this.liftCoef.Evaluate(AngleOfAttack * Mathf.Rad2Deg);
+        var liftCoef = this.jet.LiftCoef.Evaluate(AngleOfAttack * Mathf.Rad2Deg);
 
-        var liftPower = liftVelocitySquard * liftCoef * liftValue;
+        var liftPower = liftVelocitySquard * liftCoef * jet.LiftValue;
 
         var liftDirection = Vector3.Cross(liftVelocity.normalized,right);
 
@@ -69,7 +67,7 @@ public class AeroBody : MonoBehaviour
 
         var dragCoef = liftCoef * liftCoef;
 
-        var dragPower = liftVelocitySquard * dragCoef * inducedDragCoef.Evaluate(Mathf.Max(0, localVelocity.z));
+        var dragPower = liftVelocitySquard * dragCoef * jet.InducedDragCoef.Evaluate(Mathf.Max(0, localVelocity.z));
 
         var inducedDragDirection = -liftVelocity.normalized;
 
@@ -80,23 +78,26 @@ public class AeroBody : MonoBehaviour
 
    
     
-    private void CalculateGForce()
+    public Vector3 CalculateGForce()
     {
        
        
 
-        acceleration = ( prevVelocity- currentVelocity )/Time.deltaTime;
+        acceleration = (currentVelocity - prevVelocity ) /9.87f ;
 
-        float gravityScale = 9.87f;
+
+        Vector3 g = MathUtilties.Scale6(acceleration.normalized, localAngularVelocity.x, localAngularVelocity.x, localAngularVelocity.y * YawAOA, localAngularVelocity.y * YawAOA, localAngularVelocity.z, -9.88f);
         prevVelocity = currentVelocity;
-        G = Vector3.Cross (acceleration /gravityScale,Vector3.right).magnitude;
-   
+      
+      
+        return g;
 
+       
     }
     private void StallBody()
     {
         float speed = currentVelocity.magnitude;
-        if(speed < stallSpeed)
+        if(speed < jet.StallSpeed)
         {
             Vector3 heading = (transform.position - ( currentVelocity.normalized));
             Quaternion lookRotation = Quaternion.FromToRotation(currentVelocity,heading);
@@ -114,7 +115,7 @@ public class AeroBody : MonoBehaviour
         CalculateLift(Vector3.right,AOA);
         CalculateLift(Vector3.up, YawAOA);
         //StallBody();
-        CalculateGForce();
+       
         ApplyDrag();
         //Testing Steering
         //CalculateSteer(Vector3.right * Input.GetAxis("Vertical") * 30.5f);

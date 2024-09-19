@@ -28,24 +28,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""a737afdc-b3f4-43d8-9886-53c2228cb8ac"",
             ""actions"": [
                 {
-                    ""name"": ""ThrottleUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""3e34e925-0b62-4af1-9eb3-30a706fb396c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ThrottleDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""0283a753-f425-400f-b722-f5086f1a9763"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Mouse"",
                     ""type"": ""Value"",
                     ""id"": ""7aa84a29-0003-454b-a4d5-59f364bc2ea7"",
@@ -55,47 +37,43 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""YawLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""a4aaebc0-2238-44bf-925f-db5281c6eecd"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""ThrottleAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""b3ba650f-4fb3-4658-a7c1-9338c249eb1c"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""YawRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""a603cee6-a106-44df-8d72-f72d8e498ab7"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""PitchAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""ebaf558d-5226-4986-a2d9-0b5e7620e04d"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""YawAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""a7100ae4-9762-4a05-aa73-ca9f5751ee95"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RollAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""8c046d48-9418-45ab-addf-2dac4277c14c"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""cb505c11-8b1e-45bb-82ee-5f90b9348f00"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ThrottleUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""810ec3d8-286b-4ec4-ab6f-c807921efb65"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ThrottleDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""422f46cb-5d39-4f05-91d7-4390ddc43b37"",
@@ -108,26 +86,136 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""da3d3767-4072-4bd1-959b-bac477bc35af"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""name"": ""Yaw"",
+                    ""id"": ""77784225-d717-47da-ae94-609ad968b81c"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""YawLeft"",
-                    ""isComposite"": false,
+                    ""action"": ""YawAxis"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""72c9733a-297f-4421-9456-af31c6d41e30"",
+                    ""name"": ""negative"",
+                    ""id"": ""70d5f332-cf96-4b32-b04d-422e35cef136"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""YawRight"",
+                    ""action"": ""YawAxis"",
                     ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b7e8e241-9e2b-49d3-86d7-94a353cc2e16"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""YawAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Throttle"",
+                    ""id"": ""c0e78c06-d69e-4305-a9af-8cbb757277c0"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrottleAxis"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""08acbfe8-2059-4cf7-8cf8-1299cca354c1"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrottleAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""264fb889-d4c5-4298-a691-d50bc4f34904"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrottleAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Pitch"",
+                    ""id"": ""6b1a21a6-e0cf-474b-a80a-9a2f116b1955"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PitchAxis"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""30c920b5-42a8-4dd7-81a9-f0c6cda1211e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PitchAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""30b388e7-9064-446f-ad54-da71cbdaa36f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PitchAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""id"": ""539dad95-e1e7-4c0b-b49d-46525c4c2d1e"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollAxis"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""71494b86-b0bb-48a9-b9ec-b21f5807ee0c"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""826459d2-6351-45a0-b358-db9dcd33cf92"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -164,11 +252,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
 }");
         // JetControls
         m_JetControls = asset.FindActionMap("JetControls", throwIfNotFound: true);
-        m_JetControls_ThrottleUp = m_JetControls.FindAction("ThrottleUp", throwIfNotFound: true);
-        m_JetControls_ThrottleDown = m_JetControls.FindAction("ThrottleDown", throwIfNotFound: true);
         m_JetControls_Mouse = m_JetControls.FindAction("Mouse", throwIfNotFound: true);
-        m_JetControls_YawLeft = m_JetControls.FindAction("YawLeft", throwIfNotFound: true);
-        m_JetControls_YawRight = m_JetControls.FindAction("YawRight", throwIfNotFound: true);
+        m_JetControls_ThrottleAxis = m_JetControls.FindAction("ThrottleAxis", throwIfNotFound: true);
+        m_JetControls_PitchAxis = m_JetControls.FindAction("PitchAxis", throwIfNotFound: true);
+        m_JetControls_YawAxis = m_JetControls.FindAction("YawAxis", throwIfNotFound: true);
+        m_JetControls_RollAxis = m_JetControls.FindAction("RollAxis", throwIfNotFound: true);
         // Weapons
         m_Weapons = asset.FindActionMap("Weapons", throwIfNotFound: true);
         m_Weapons_Newaction = m_Weapons.FindAction("New action", throwIfNotFound: true);
@@ -233,20 +321,20 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // JetControls
     private readonly InputActionMap m_JetControls;
     private List<IJetControlsActions> m_JetControlsActionsCallbackInterfaces = new List<IJetControlsActions>();
-    private readonly InputAction m_JetControls_ThrottleUp;
-    private readonly InputAction m_JetControls_ThrottleDown;
     private readonly InputAction m_JetControls_Mouse;
-    private readonly InputAction m_JetControls_YawLeft;
-    private readonly InputAction m_JetControls_YawRight;
+    private readonly InputAction m_JetControls_ThrottleAxis;
+    private readonly InputAction m_JetControls_PitchAxis;
+    private readonly InputAction m_JetControls_YawAxis;
+    private readonly InputAction m_JetControls_RollAxis;
     public struct JetControlsActions
     {
         private @PlayerControls m_Wrapper;
         public JetControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ThrottleUp => m_Wrapper.m_JetControls_ThrottleUp;
-        public InputAction @ThrottleDown => m_Wrapper.m_JetControls_ThrottleDown;
         public InputAction @Mouse => m_Wrapper.m_JetControls_Mouse;
-        public InputAction @YawLeft => m_Wrapper.m_JetControls_YawLeft;
-        public InputAction @YawRight => m_Wrapper.m_JetControls_YawRight;
+        public InputAction @ThrottleAxis => m_Wrapper.m_JetControls_ThrottleAxis;
+        public InputAction @PitchAxis => m_Wrapper.m_JetControls_PitchAxis;
+        public InputAction @YawAxis => m_Wrapper.m_JetControls_YawAxis;
+        public InputAction @RollAxis => m_Wrapper.m_JetControls_RollAxis;
         public InputActionMap Get() { return m_Wrapper.m_JetControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,40 +344,40 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_JetControlsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_JetControlsActionsCallbackInterfaces.Add(instance);
-            @ThrottleUp.started += instance.OnThrottleUp;
-            @ThrottleUp.performed += instance.OnThrottleUp;
-            @ThrottleUp.canceled += instance.OnThrottleUp;
-            @ThrottleDown.started += instance.OnThrottleDown;
-            @ThrottleDown.performed += instance.OnThrottleDown;
-            @ThrottleDown.canceled += instance.OnThrottleDown;
             @Mouse.started += instance.OnMouse;
             @Mouse.performed += instance.OnMouse;
             @Mouse.canceled += instance.OnMouse;
-            @YawLeft.started += instance.OnYawLeft;
-            @YawLeft.performed += instance.OnYawLeft;
-            @YawLeft.canceled += instance.OnYawLeft;
-            @YawRight.started += instance.OnYawRight;
-            @YawRight.performed += instance.OnYawRight;
-            @YawRight.canceled += instance.OnYawRight;
+            @ThrottleAxis.started += instance.OnThrottleAxis;
+            @ThrottleAxis.performed += instance.OnThrottleAxis;
+            @ThrottleAxis.canceled += instance.OnThrottleAxis;
+            @PitchAxis.started += instance.OnPitchAxis;
+            @PitchAxis.performed += instance.OnPitchAxis;
+            @PitchAxis.canceled += instance.OnPitchAxis;
+            @YawAxis.started += instance.OnYawAxis;
+            @YawAxis.performed += instance.OnYawAxis;
+            @YawAxis.canceled += instance.OnYawAxis;
+            @RollAxis.started += instance.OnRollAxis;
+            @RollAxis.performed += instance.OnRollAxis;
+            @RollAxis.canceled += instance.OnRollAxis;
         }
 
         private void UnregisterCallbacks(IJetControlsActions instance)
         {
-            @ThrottleUp.started -= instance.OnThrottleUp;
-            @ThrottleUp.performed -= instance.OnThrottleUp;
-            @ThrottleUp.canceled -= instance.OnThrottleUp;
-            @ThrottleDown.started -= instance.OnThrottleDown;
-            @ThrottleDown.performed -= instance.OnThrottleDown;
-            @ThrottleDown.canceled -= instance.OnThrottleDown;
             @Mouse.started -= instance.OnMouse;
             @Mouse.performed -= instance.OnMouse;
             @Mouse.canceled -= instance.OnMouse;
-            @YawLeft.started -= instance.OnYawLeft;
-            @YawLeft.performed -= instance.OnYawLeft;
-            @YawLeft.canceled -= instance.OnYawLeft;
-            @YawRight.started -= instance.OnYawRight;
-            @YawRight.performed -= instance.OnYawRight;
-            @YawRight.canceled -= instance.OnYawRight;
+            @ThrottleAxis.started -= instance.OnThrottleAxis;
+            @ThrottleAxis.performed -= instance.OnThrottleAxis;
+            @ThrottleAxis.canceled -= instance.OnThrottleAxis;
+            @PitchAxis.started -= instance.OnPitchAxis;
+            @PitchAxis.performed -= instance.OnPitchAxis;
+            @PitchAxis.canceled -= instance.OnPitchAxis;
+            @YawAxis.started -= instance.OnYawAxis;
+            @YawAxis.performed -= instance.OnYawAxis;
+            @YawAxis.canceled -= instance.OnYawAxis;
+            @RollAxis.started -= instance.OnRollAxis;
+            @RollAxis.performed -= instance.OnRollAxis;
+            @RollAxis.canceled -= instance.OnRollAxis;
         }
 
         public void RemoveCallbacks(IJetControlsActions instance)
@@ -355,11 +443,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public WeaponsActions @Weapons => new WeaponsActions(this);
     public interface IJetControlsActions
     {
-        void OnThrottleUp(InputAction.CallbackContext context);
-        void OnThrottleDown(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
-        void OnYawLeft(InputAction.CallbackContext context);
-        void OnYawRight(InputAction.CallbackContext context);
+        void OnThrottleAxis(InputAction.CallbackContext context);
+        void OnPitchAxis(InputAction.CallbackContext context);
+        void OnYawAxis(InputAction.CallbackContext context);
+        void OnRollAxis(InputAction.CallbackContext context);
     }
     public interface IWeaponsActions
     {

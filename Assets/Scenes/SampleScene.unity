@@ -559,7 +559,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1000, y: 1, z: 1000}
+  m_LocalScale: {x: 10000, y: 1, z: 10000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -758,7 +758,7 @@ MonoBehaviour:
   worldData:
     gravityScale: 1
     speedScale: 1
-    measureScale: 2
+    measureScale: 1
 --- !u!4 &107905998263250274
 Transform:
   m_ObjectHideFlags: 0
@@ -1554,6 +1554,8 @@ GameObject:
   - component: {fileID: 7329885862052488251}
   - component: {fileID: 7329885862052488252}
   - component: {fileID: 7329885862052488253}
+  - component: {fileID: 7329885862052488254}
+  - component: {fileID: 7329885862052488255}
   m_Layer: 0
   m_Name: F15
   m_TagString: Untagged
@@ -1761,8 +1763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c296939db1a064eb59d4f780db7647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxThrust: 222411
-  thrustGain: 2500
   rb: {fileID: 7329885862052488250}
 --- !u!136 &4669610370635254224
 CapsuleCollider:
@@ -2162,7 +2162,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4054864724316229652}
   serializedVersion: 4
-  m_Mass: 25000
+  m_Mass: 45000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2193,6 +2193,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbce4d8ccda82e438c5852014007be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  G: {x: 0, y: 0, z: 0}
+--- !u!114 &7329885862052488252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054864724316229652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c6938f8247fc0439fea43eb0bb9877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevatorLeft: {fileID: 4103536318025067512}
+  elevatorRight: {fileID: 4840811710794486980}
+  accel: {x: 0, y: 0, z: 0}
+  localAngularVelocity: {x: 0, y: 0, z: 0}
+--- !u!114 &7329885862052488253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054864724316229652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ca0d736f3f855498a09a7cd2c1a41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7329885862052488254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054864724316229652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9207008408973e43b00fdea8bc98070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: -944628639613478452, guid: d22758003e24a3646bbc87902819a319,
+    type: 3}
+  engines: {fileID: 4633399453119823319}
+  flightControls: {fileID: 7329885862052488252}
+  throttleSpeed: 2
+--- !u!114 &7329885862052488255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054864724316229652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755d93035068dac46ad24cbe316310da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: F15
   liftValue: 175
   dragLeft:
     serializedVersion: 2
@@ -2415,20 +2474,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   stallSpeed: 108
   inducedDragPower: 75
---- !u!114 &7329885862052488252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4054864724316229652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1c6938f8247fc0439fea43eb0bb9877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  elevatorLeft: {fileID: 0}
-  elevatorRight: {fileID: 0}
   steerCoef:
     serializedVersion: 2
     m_Curve:
@@ -2477,22 +2522,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  turnAcceleration: {x: 700, y: 0, z: 500}
-  turnSpeed: {x: 1, y: 1, z: 1}
-  accel: {x: 0, y: 0, z: 0}
-  localAngularVelocity: {x: 0, y: 0, z: 0}
---- !u!114 &7329885862052488253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4054864724316229652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ca0d736f3f855498a09a7cd2c1a41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  turnAcceleration: {x: 90, y: 15, z: 350}
+  maxThrust: 322241
+  throttleIncSpeed: 9
+  turnSpeed: {x: 2, y: 2, z: 2}
 --- !u!136 &7700733018369142583
 CapsuleCollider:
   m_ObjectHideFlags: 0

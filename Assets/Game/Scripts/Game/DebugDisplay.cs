@@ -17,8 +17,9 @@ public class DebugDisplay : MonoBehaviour
     private float speedKTS;
     private void Update()
     {
-        GForce = ((body.G)); 
-       angularSpeed = body.localAngularVelocity.magnitude;
+        GForce = Mathf.Clamp(body.G.magnitude,-15,15);
+        
+        angularSpeed = body.localAngularVelocity.magnitude;
         AOA = body.AOA * Mathf.Rad2Deg;
         YawAOA = body.YawAOA * Mathf.Rad2Deg;
         speedKTS = (body.localVelocity.z) * GameManager.gameManager.WorldData.measureScale;
