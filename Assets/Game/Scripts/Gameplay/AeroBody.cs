@@ -35,6 +35,7 @@ public class AeroBody : MonoBehaviour
         AOA = Mathf.Atan2(-localVelocity.y, localVelocity.z);
         YawAOA = Mathf.Atan2(localVelocity.x, localVelocity.z);
         currentVelocity = rb.velocity;
+        
     }
 
     private void ApplyDrag()
