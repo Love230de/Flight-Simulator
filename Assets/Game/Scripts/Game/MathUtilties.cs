@@ -51,6 +51,14 @@ public static class MathUtilties
         return prevVelocity - currentVelocity;
     }
 
+
+    public static Vector3 TransformToUISpace(Vector3 globalSpace,Camera main) {
+
+        Vector3 cameraSpace = main.ScreenToWorldPoint(globalSpace);
+
+        return cameraSpace;
+    
+    }
     public static Vector3 ConvertToKnots(Vector3 velocity)
     {
         float x = (velocity.x * velocity.x ) * 1.852f;

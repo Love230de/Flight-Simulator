@@ -28,7 +28,7 @@ public class ControlSurfaces : MonoBehaviour
     {
         float error = target - velocity;
         float accel = acceleration * Time.deltaTime;
-        return Mathf.Clamp(error, -acceleration, acceleration);
+        return  Mathf.Clamp(error, -accel, accel);
     }
 
     
@@ -52,12 +52,21 @@ public class ControlSurfaces : MonoBehaviour
         var speed = Mathf.Max(0, (localVelocity).z);
         var steerPower = jet.SteerCoef.Evaluate(speed);
         var localAngularVelocity = Quaternion.Inverse(rb.rotation) * rb.angularVelocity;
-        var targetVelocity = Vector3.Scale(controlInput, jet.TurnSpeed);
+        var targetVelocity = Vector3.Scale(controlInput, jet.TurnSpeed * steerPower);
         var correction = new Vector3(CalculateSteer(targetVelocity.x, localAngularVelocity.x, jet.TurnAcceleration.x),
             CalculateSteer(targetVelocity.y, localAngularVelocity.y, jet.TurnAcceleration.y),
             CalculateSteer(targetVelocity.z, localAngularVelocity.z, jet.TurnAcceleration.z));
-            rb.AddRelativeTorque(correction * steerPower,ForceMode.VelocityChange);
-      
+
+        if (speed < jet.StallSpeed && speed > jet.StallSpeed * 0.5f)
+        {
+
+            
+            rb.AddRelativeTorque(correction * steerPower * 0.5f, ForceMode.VelocityChange);
+        }
+       
+            rb.AddRelativeTorque(correction * steerPower, ForceMode.VelocityChange);
+        
+   
         ElevatorAnimation(this.controlInputX.x, elevatorLeft);
         ElevatorAnimation(this.controlInputX.x, elevatorRight);
 
@@ -74,29 +83,6 @@ public class ControlSurfaces : MonoBehaviour
 
         elevator.localRotation = Quaternion.Slerp(elevator.localRotation, newRotation, jet.TurnAcceleration.normalized.magnitude * Time.deltaTime * 15f);
     }
-    private void UpdateControl()
-    {
-
-
-
-        // float steerX = Steer(currentVelocity.x, steerInput.x,  Mathf.Max(0,currentVelocity.z) * pitchSpeed);
-        // float steerY = Steer(currentVelocity.y, steerInput.y * yawSpeed, accel.y);
-        //  float steerZ = Steer(currentVelocity.z, steerInput.z * turnSpeed, accel.z);
-
-        //  Vector3 steerForce = new Vector3(steerX, steerY, steerZ);
-
-
- 
-
-
-    }
-    private void Update()
-    { 
-    }
-    private void FixedUpdate()
-    {
-
-        UpdateControl();
-
-    }
+   
+    
 }
